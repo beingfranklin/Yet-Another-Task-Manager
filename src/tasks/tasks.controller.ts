@@ -38,8 +38,8 @@ export class TasksController {
   }
 
   @Post()
-  createTask(@Body() CreateTaskDto: CreateTaskDto): Task {
-    return this.tasksService.createTask(CreateTaskDto);
+  createTask(@Body() createDto: CreateTaskDto): Task {
+    return this.tasksService.createTask(createDto);
   }
 
   @Patch('/:id/status')
