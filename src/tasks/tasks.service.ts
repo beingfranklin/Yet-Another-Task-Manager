@@ -12,7 +12,7 @@ export class TasksService {
   }
 
   getTasksWithFilters(filterDto: GetTaskFilterDto): Task[] {
-    const { status, search } = filterDto;
+    const { status, search }: { status?: string; search?: string } = filterDto;
     return this.tasks.filter((task) => {
       task.status === status ||
         task.description.includes(search) ||
@@ -31,13 +31,18 @@ export class TasksService {
   }
 
   createTask(CreateTaskDto): Task {
-    const { title, description } = CreateTaskDto;
+    const {
+      title,
+      description,
+      status,
+    }: { title: string; description: string; status?: TaskStatus } =
+      CreateTaskDto;
 
     const task: Task = {
       id: uuid(),
       title,
       description,
-      status: TaskStatus.OPEN,
+      status: status ?? TaskStatus.OPEN,
     };
 
     this.tasks.push(task);
