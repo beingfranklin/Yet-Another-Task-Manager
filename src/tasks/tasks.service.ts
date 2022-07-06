@@ -17,11 +17,20 @@ export class TasksService {
 
     // @TODO Need to work on the filtering logic
 
-    return this.tasks.filter((task) => {
-      task.status === status ||
-        task.description.includes(search) ||
-        task.title.includes(search);
-    });
+    let tasks = this.getAllTasks();
+
+    if (status) {
+      tasks = tasks.filter((task) => task.status === status);
+    }
+
+    if (search) {
+      tasks = tasks.filter(
+        (task) =>
+          task.title.includes(search) || task.description.includes(search),
+      );
+    }
+
+    return tasks;
   }
 
   getTaskById(id: string): Task {
